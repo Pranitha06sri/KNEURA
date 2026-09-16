@@ -1,10 +1,5 @@
-﻿from pathlib import Path
-
-from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
-
-ROOT = Path(__file__).resolve().parent
-FRONTEND = ROOT / "frontend"
+﻿from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 
 app = FastAPI(
     title="KNEURA",
@@ -15,14 +10,9 @@ app = FastAPI(
 def health():
     return {
         "status": "ok",
-        "service": "KNEURA",
-        "platform": "Vercel"
+        "service": "KNEURA"
     }
 
-# Keep this AFTER the API routes.
-# It serves frontend/index.html at /
-app.mount(
-    "/",
-    StaticFiles(directory=str(FRONTEND), html=True),
-    name="frontend"
-)
+@app.get("/", include_in_schema=False)
+def homepage():
+    return RedirectResponse(url="/index.html")
