@@ -1,20 +1,9 @@
-﻿import sys
-from pathlib import Path
-
-ROOT = Path(__file__).resolve().parents[1]
-BACKEND = ROOT / "backend 1"
-
-sys.path.insert(0, str(BACKEND))
-
-from fastapi import FastAPI
-from app.main import app as kneura_app
+﻿from fastapi import FastAPI
 
 app = FastAPI()
 
-app.mount("/api", kneura_app)
-
-@app.get("/api/vercel-health")
-def vercel_health():
+@app.get("/api/health")
+def health():
     return {
         "status": "ok",
         "service": "KNEURA"
