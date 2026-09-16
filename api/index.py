@@ -7,16 +7,15 @@ BACKEND = ROOT / "backend 1"
 sys.path.insert(0, str(BACKEND))
 
 from fastapi import FastAPI
-from app.main import app as kneura_backend
+from app.main import app as kneura_app
 
 app = FastAPI()
 
-app.mount("/api", kneura_backend)
+app.mount("/api", kneura_app)
 
-@app.get("/api/health-vercel")
-def health_vercel():
+@app.get("/api/vercel-health")
+def vercel_health():
     return {
         "status": "ok",
-        "service": "KNEURA",
-        "platform": "Vercel"
+        "service": "KNEURA"
     }
